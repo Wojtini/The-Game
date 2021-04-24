@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
         targetPos.x = targetPos.x - thisPos.x;
         targetPos.y = targetPos.y - thisPos.y;
         float angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + -90));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + -90 + offset));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
