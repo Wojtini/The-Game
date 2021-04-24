@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Hello there" + collision);
         if (collision.gameObject.tag == "Player")
         {
             Vector3 dir = collision.gameObject.transform.position - this.transform.position;

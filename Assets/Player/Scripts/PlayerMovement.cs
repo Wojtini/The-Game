@@ -11,9 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 40f;
 
     // Jumping
+    private float currJumpCooldown = 0f;
+    public float jumpCooldown = 1f;
     public float jumpForce = 400f;
-    public float jumpHold = 0f;
-    public float maxJumpHold = 1f;
     public bool jump = false;
 
 
@@ -30,50 +30,30 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-        if (Input.GetButton("Jump"))
+        if (currJumpCooldown > 0f)
         {
-            jumpHold += Time.deltaTime;
-
-            if ( jumpHold >= maxJumpHold )
-            {
-                jumpHold = maxJumpHold;
-                jump = true;
-            }
+            currJumpCooldown -= Time.deltaTime;
+            return;
         }
-        else if(jumpHold > 0) //Nie trzymam spacji ale trzymalem wczesniej
+        if (Input.GetButtonDown("Jump"))
         {
             jump = true;
         }
+        
+        //for more frequent update
+        animator.SetBool("isFalling", rb2d.velocity.y < -0.05);
+
     }
 
     private void FixedUpdate()
     {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, jumpForce);
+
+
+
+
         animator.SetBool("isRunning", horizontalMove != 0);
-
-        if (jump)
-        {
-            animator.SetBool("jumpBool",true);
-        }
-        else
-        {
-            animator.SetBool("jumpBool", false);
-        }
-
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, jumpForce * (jumpHold/maxJumpHold));
-
-        if (rb2d.velocity.y < -0.1)
-        {
-            animator.SetBool("isFalling", true);
-        }
-        else
-        {
-            animator.SetBool("isFalling", false);
-        }
-
-        if (jump)
-        {
-            jump = false;
-            jumpHold = 0;
-        }
+        animator.SetBool("jumpBool", jump);
+        jump = false;
     }
 }
