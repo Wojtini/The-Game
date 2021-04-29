@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 400f;
     public bool jump = false;
 
-
+    private bool freezed = false;
 
     Animator animator;
     // Start is called before the first frame update
@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (freezed)
+            return;
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, jumpForce);
 
 
@@ -55,5 +57,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isRunning", horizontalMove != 0);
         animator.SetBool("jumpBool", jump);
         jump = false;
+    }
+
+    public void SetFreezePlayerMovement(bool freezed)
+    {
+        this.freezed = freezed;
     }
 }

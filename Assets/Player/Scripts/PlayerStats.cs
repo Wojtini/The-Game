@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PlayerStats : Actor
 {
+    private Animator animator;
+    private PlayerMovement playerMovement;
+
+    private bool isDead = false;
 
     private void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
         updateUI();
     }
 
@@ -18,6 +24,11 @@ public class PlayerStats : Actor
 
     override public void death(Vector2 dirHit)
     {
+        if (isDead)
+            return;
+        isDead = true;
+        playerMovement.SetFreezePlayerMovement(true);
+        animator.SetTrigger("death");
         return;
     }
 
