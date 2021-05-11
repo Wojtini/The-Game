@@ -6,6 +6,8 @@ public class PlayerGUI : MonoBehaviour
 {
     public static PlayerGUI instance;
     public HealthBarUI hpUI;
+
+    public TextPrompt textPrompt;
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,9 +15,9 @@ public class PlayerGUI : MonoBehaviour
         hpUI = GetComponentInChildren<HealthBarUI>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowTextPrompt(string primaryText, string secondaryText, float lifeTime)
     {
-        
+        textPrompt.DisplayTexts(primaryText,secondaryText,lifeTime);
     }
+    
 }

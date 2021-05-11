@@ -29,6 +29,10 @@ public class Actor : MonoBehaviour
             pom.transform.position = this.transform.position;
             pom.transform.position = pom.transform.position + new Vector3(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f), 0f);
             pom.GetComponent<Rigidbody2D>().AddForce(dirHit * bloodSpillForce, ForceMode2D.Impulse);
+            if(StuffContainer.instance != null)
+            {
+                pom.transform.SetParent(StuffContainer.instance.transform);
+            }
             Destroy(pom, bloodLifetime);
         }
     }

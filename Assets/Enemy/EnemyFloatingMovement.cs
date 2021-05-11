@@ -2,26 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFloatingMovement : StateMachineBehaviour
+public class EnemyFloatingMovement : CommonIdleBehaviour
 {
-    public float currAttackCooldown = 0f;
-    public float attackCooldown = 5f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        currAttackCooldown = 0f;    
+        base.OnStateEnter(animator, stateInfo, layerIndex);
+        //target = GameObject.FindGameObjectWithTag("Player").transform;
+        //currAttackCooldown = 0f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        currAttackCooldown += Time.deltaTime;
-        if( currAttackCooldown >= attackCooldown)
+        base.OnStateUpdate(animator, stateInfo, layerIndex);
+        if(currAttackCooldown > attackCooldown)
         {
-            animator.SetTrigger("channelAttack");
+            if (target != null)
+            {
+                animator.SetTrigger("channelAttack");
+            }
+            else
+            {
+                animator.SetTrigger("forceIdle");
+            }
         }
-
-
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -7,6 +7,9 @@ public class PlayerStats : Actor
     private Animator animator;
     private PlayerMovement playerMovement;
 
+    public float max_inv = 2f;
+    public float inv = 0f;
+
     private bool isDead = false;
 
     private void Start()
@@ -16,10 +19,22 @@ public class PlayerStats : Actor
         updateUI();
     }
 
+    public void Update()
+    {
+        if (inv > 0)
+        {
+            inv = inv - Time.deltaTime;
+        }
+    }
+
     public override void takeDamage(int value, Vector2 dirHit)
     {
-        base.takeDamage(value, dirHit);
-        updateUI();
+        if(inv <= 0)
+        {
+            base.takeDamage(value, dirHit);
+            updateUI();
+            inv = max_inv;
+        }
     }
 
     override public void death(Vector2 dirHit)

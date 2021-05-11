@@ -32,12 +32,6 @@ public class AttackCast : StateMachineBehaviour
             return;
         projComp.setSpeed(speed);
         projComp.setTarget(target,0f);
-        //Vector3 targetPos = target.position;
-        //Vector3 thisPos = a.transform.position;
-        //targetPos.x = targetPos.x - thisPos.x;
-        //targetPos.y = targetPos.y - thisPos.y;
-        //float angle = Mathf.Atan2(targetPos.y, targetPos.x) * Mathf.Rad2Deg;
-        //a.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + -90));
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
