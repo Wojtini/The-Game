@@ -15,7 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown = 1f;
     public float jumpForce = 400f;
     public bool jump = false;
-
+    //Dashing
+    public bool canDash = false;
+    public float dashForce = 400f;
+    public bool dash = false;
+    //Freeze
     private bool freezed = false;
 
     Animator animator;
@@ -33,11 +37,15 @@ public class PlayerMovement : MonoBehaviour
         if (currJumpCooldown > 0f)
         {
             currJumpCooldown -= Time.deltaTime;
-            return;
         }
-        if (Input.GetButtonDown("Jump"))
+        else if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+        }
+        if (Input.GetKeyDown("left shift"))
+        {
+            Debug.Log("git");
+            dash = true;
         }
         
         //for more frequent update
@@ -49,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (freezed)
             return;
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, jumpForce);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, jumpForce, dash, dashForce);
 
 
 
@@ -57,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isRunning", horizontalMove != 0);
         animator.SetBool("jumpBool", jump);
         jump = false;
+        dash = false;
     }
 
     public void SetFreezePlayerMovement(bool freezed)

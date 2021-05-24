@@ -212,6 +212,9 @@ MonoBehaviour:
   jumpCooldown: 1
   jumpForce: 400
   jump: 0
+  canDash: 0
+  dashForce: 1500
+  dash: 0
 --- !u!114 &4131775819386046579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +233,8 @@ MonoBehaviour:
   bloodLifetime: 5
   currentHealth: 5
   maxHealth: 5
+  max_inv: 2
+  inv: 0
 --- !u!70 &7187793856853995213
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

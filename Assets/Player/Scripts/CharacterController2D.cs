@@ -74,7 +74,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump, float jumpForce)
+	public void Move(float move, bool crouch, bool jump, float jumpForce, bool dash, float dashForce)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -143,6 +143,14 @@ public class CharacterController2D : MonoBehaviour
             m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 		}
+        if (dash)
+        {
+            if (!m_FacingRight)
+            {
+                dashForce = -dashForce;
+            }
+            m_Rigidbody2D.AddForce(new Vector2(dashForce, 0f));
+        }
 	}
 
 
